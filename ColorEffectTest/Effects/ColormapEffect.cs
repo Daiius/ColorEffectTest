@@ -15,6 +15,10 @@ namespace ColorEffectTest.Effects
         public static readonly DependencyProperty InputProperty
             = ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(ColormapEffect), 0);
 
+        public static readonly DependencyProperty ThresholdProperty =
+            DependencyProperty.Register("Threshold", typeof(double), typeof(ColormapEffect),
+                new UIPropertyMetadata(1.0, PixelShaderConstantCallback(0)));
+
         public ColormapEffect()
         {
             var ps = new PixelShader();
@@ -23,12 +27,19 @@ namespace ColorEffectTest.Effects
 
             this.PixelShader = ps;
             UpdateShaderValue(InputProperty);
+            UpdateShaderValue(ThresholdProperty);
         }
 
         public Brush Input
         {
             get { return (Brush)GetValue(InputProperty); }
             set { SetValue(InputProperty, value); }
+        }
+
+        public double Threshold
+        {
+            get { return (double)GetValue(ThresholdProperty); }
+            set { SetValue(ThresholdProperty, value); }
         }
     }
 }
