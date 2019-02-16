@@ -46,6 +46,42 @@ namespace DCAMAPI_Test.Models
             public IntPtr hdcam;
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        struct DCAMWAIT_OPEN
+        {
+            public int size;
+            public int supportevent;
+            public IntPtr hwait;
+            public IntPtr hdcam;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct DCAMWAIT_START
+        {
+            public int size;
+            public int eventhappend;
+            public int eventmask;
+            public int timeout;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct DCAMCAP_TRANSFERINFO
+        {
+            public int size;
+            public int iKind;
+            public int nNewestFrameIndex;
+            public int nFrameCount;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct DCAMBUF_ATTACH
+        {
+            public int size;
+            public int iKind;
+            public IntPtr buffer;
+
+        }
+
         [DllImport("dcamapi.dll")]
         extern static uint dcamapi_init(ref DCAMAPI_INIT param);
 
@@ -60,6 +96,21 @@ namespace DCAMAPI_Test.Models
 
         [DllImport("dcamapi.dll")]
         extern static uint dcamprop_getvalue(IntPtr handle, int iProp, ref double pValue);
+
+        [DllImport("dcamapi.dll")]
+        extern static uint dcamwait_open(ref DCAMWAIT_OPEN param);
+
+        [DllImport("dcamapi.dll")]
+        extern static uint dcambuf_alloc(IntPtr handle, int nbuffer);
+
+        [DllImport("dcamapi.dll")]
+        extern static uint dcambuf_release(IntPtr handle);
+
+        [DllImport("dcamapi.dll")]
+        extern static uint dcamwait_close(IntPtr hwait);
+
+        [DllImport("dcamapi.dll")]
+        extern static uint dcamcap_start(IntPtr handle, int mode);
 
         enum _DCAMPROPOPTION : long
         {
@@ -978,6 +1029,15 @@ namespace DCAMAPI_Test.Models
             DCAM_PIXELTYPE_NONE = 0x00000000
         }
 
+        enum DCAMCAP_START
+        {
+            DCAMCAP_START_SEQUENCE = -1,
+            DCAMCAP_START_SNAP = 0
+        }
+
+        public int ImageWidth { get; set; }
+
+        public int ImageHeight { get; set; }
 
         public void Init()
         {
@@ -993,7 +1053,7 @@ namespace DCAMAPI_Test.Models
 
             if (result == 1)
             {
-                double v = 0;
+                double v = 0.0;
                 result = dcamprop_getvalue(devOpenParam.hdcam, (int)_DCAMIDPROP.DCAM_IDPROP_IMAGE_PIXELTYPE, ref v);
 
                 if ((int)v == (int)DCAM_PIXELTYPE.DCAM_PIXELTYPE_MONO12)
@@ -1004,8 +1064,50 @@ namespace DCAMAPI_Test.Models
 
             if (result == 1)
             {
+                double v = 0.0;
+                result = dcamprop_getvalue(devOpenParam.hdcam, (int)_DCAMIDPROP.DCAM_IDPROP_IMAGE_WIDTH, ref v);
+                ImageWidth = (int)v;
+            }
+
+            if (result == 1)
+            {
+                double v = 0.0;
+                result = dcamprop_getvalue(devOpenParam.hdcam, (int)_DCAMIDPROP.DCAM_IDPROP_IMAGE_HEIGHT, ref v);
+                ImageHeight = (int)v;
+            }
+
+            IntPtr hwait;
+            if (result == 1)
+            {
+                var waitOpenParam = new DCAMWAIT_OPEN();
+                waitOpenParam.size = Marshal.SizeOf(waitOpenParam);
+                waitOpenParam.hdcam = devOpenParam.hdcam;
+
+                result = dcamwait_open(ref waitOpenParam);
+                if (result == 1) hwait = waitOpenParam.hwait;
+            }
+
+            // NOTE :
+            // 画像取得用のバッファは、DCAMAPIが確保する場合とこちらで確保する場合と
+            // 2通り使う事が出来る。
+
+            const int nbuffer = 10;
+            if (result == 1)
+            {
+                result = dcambuf_alloc(devOpenParam.hdcam, nbuffer);
+            }
+
+            if (result == 1)
+            {
+                result = dcamcap_start(devOpenParam.hdcam, (int)DCAMCAP_START.DCAMCAP_START_SEQUENCE);
+            }
+
+            if (result == 1)
+            {
                 result = dcamdev_close(devOpenParam.hdcam);
             }
+
+            return;
         }
 
         public void Uninit()
