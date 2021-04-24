@@ -19,13 +19,6 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="mainGrid">
-        <!--<Grid.Effect>
-            <eff:ColormapEffect/>
-        </Grid.Effect>-->
-        <!--<Grid.Style>
-            
-        </Grid.Style>-->
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
