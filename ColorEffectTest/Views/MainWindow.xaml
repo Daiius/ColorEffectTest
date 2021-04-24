@@ -5,23 +5,26 @@
         xmlns:eff="clr-namespace:ColorEffectTest.Effects"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=toggleButton}" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <eff:ColormapEffect Threshold="{Binding ElementName=thresholdSlider, Path=Value}"/>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="mainGrid">
         <!--<Grid.Effect>
             <eff:ColormapEffect/>
         </Grid.Effect>-->
-        <Grid.Style>
-            <Style TargetType="Grid">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsChecked, ElementName=toggleButton}" Value="True">
-                        <Setter Property="Effect">
-                            <Setter.Value>
-                                <eff:ColormapEffect Threshold="{Binding ElementName=thresholdSlider, Path=Value}"/>
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Style>
+        <!--<Grid.Style>
+            
+        </Grid.Style>-->
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
