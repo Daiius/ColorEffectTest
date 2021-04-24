@@ -1,6 +1,5 @@
 ﻿using ColorEffectTest.Views;
 using Prism.Ioc;
-using Prism.Modularity;
 using System.Windows;
 
 namespace ColorEffectTest
