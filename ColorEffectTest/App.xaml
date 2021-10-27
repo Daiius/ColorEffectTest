@@ -1,9 +1,9 @@
-﻿<prism:PrismApplication x:Class="ColorEffectTest.App"
+﻿<Application x:Class="ColorEffectTest.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	     xmlns:prism="http://prismlibrary.com/"
-             xmlns:local="clr-namespace:ColorEffectTest">
+             xmlns:local="clr-namespace:ColorEffectTest"
+             StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>
-</prism:PrismApplication>
+</Application>

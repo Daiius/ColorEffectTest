@@ -17,8 +17,13 @@ namespace ColorEffectTest.Effects
         public ColormapEffect()
         {
             var ps = new PixelShader();
-            var path = System.IO.Path.GetFullPath(@"Effects/ColormapEffect.ps");
-            ps.UriSource = new Uri(path);
+            //var path = System.IO.Path.GetFullPath(@"Effects/ColormapEffect.ps");
+            var asm = typeof(ColormapEffect).Assembly;
+            var asmName = asm.GetName().Name;
+            var uri = new Uri(
+                "pack://application:,,,/" + asmName + ";component/Effects/ColormapEffect.ps",
+                UriKind.RelativeOrAbsolute);
+            ps.UriSource = uri;
 
             this.PixelShader = ps;
             UpdateShaderValue(InputProperty);

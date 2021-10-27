@@ -1,15 +1,10 @@
-﻿using Prism.Mvvm;
+﻿using Reactive.Bindings;
 
 namespace ColorEffectTest.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel
     {
-        private string _title = "Prism Application";
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
+        public ReactiveProperty<string> Title { get; set; } = new ReactiveProperty<string>("Color Effect Test");
 
         public MainWindowViewModel()
         {

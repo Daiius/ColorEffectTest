@@ -89,16 +89,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Effects\ColormapEffect.ps">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Resource Include="Effects\ColormapEffect.ps" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Prism.DryIoc" Version="7.1.0.431" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\image_01.jpg" />
@@ -106,9 +101,12 @@
     <Resource Include="Images\image_03.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Effects\ColormapEffect.fx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Effects\ColormapEffect.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ReactiveProperty.WPF">
+      <Version>7.12.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
