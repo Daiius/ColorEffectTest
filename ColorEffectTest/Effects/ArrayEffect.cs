@@ -8,12 +8,11 @@ namespace ColorEffectTest.Effects
     public class ArrayEffect : ShaderEffect
     {
         public static readonly DependencyProperty InputProperty
-            = RegisterPixelShaderSamplerProperty("Input", typeof(ColormapEffect), 0);
+            = RegisterPixelShaderSamplerProperty("Input", typeof(ArrayEffect), 0);
 
 
-        public static readonly DependencyProperty ArrayProperty =
-            DependencyProperty.Register("Array", typeof(float[]), typeof(ColormapEffect),
-                new UIPropertyMetadata(0.0, PixelShaderConstantCallback(1)));
+        public static readonly DependencyProperty ArrayProperty
+            = RegisterPixelShaderSamplerProperty("Array", typeof(ArrayEffect), 1);
 
         public ArrayEffect()
         {
@@ -38,9 +37,9 @@ namespace ColorEffectTest.Effects
         }
 
 
-        public float[] Array
+        public Brush Array
         {
-            get { return (float[])GetValue(ArrayProperty); }
+            get { return (Brush)GetValue(ArrayProperty); }
             set { SetValue(ArrayProperty, value); }
         }
     }

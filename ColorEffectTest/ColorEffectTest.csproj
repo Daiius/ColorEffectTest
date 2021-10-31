@@ -64,6 +64,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\ComparisonConverter.cs" />
     <Compile Include="Effects\ArrayEffect.cs" />
     <Compile Include="Effects\ColormapEffect.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -91,7 +92,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Effects\ColormapEffect.ps" />
-    <None Include="Effects\ArrayEffect.ps" />
+    <Resource Include="Effects\ArrayEffect.ps" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
