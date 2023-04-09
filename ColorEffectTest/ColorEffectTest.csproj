@@ -65,6 +65,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\ComparisonConverter.cs" />
     <Compile Include="Effects\ArrayEffect.cs" />
     <Compile Include="Effects\ColormapEffect.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

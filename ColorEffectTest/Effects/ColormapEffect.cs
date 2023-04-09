@@ -5,10 +5,14 @@ using System.Windows.Media.Effects;
 
 namespace ColorEffectTest.Effects
 {
+    /// <summary>
+    /// Pixel shader effect, written with reference to
+    /// http://www.kanazawa-net.ne.jp/~pmansato/wpf/wpf_graph_effect.htm
+    /// </summary>
     public class ColormapEffect : ShaderEffect
     {
         public static readonly DependencyProperty InputProperty
-            = ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(ColormapEffect), 0);
+            = RegisterPixelShaderSamplerProperty("Input", typeof(ColormapEffect), 0);
 
         public static readonly DependencyProperty ThresholdProperty =
             DependencyProperty.Register("Threshold", typeof(double), typeof(ColormapEffect),
